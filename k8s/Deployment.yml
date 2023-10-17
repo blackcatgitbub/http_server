@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-ruby-app-deployment
+  namespace: arun # Change namespace based your project
+spec:
+  replicas: 2 # You can adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: your-ruby-app
+  template:
+    metadata:
+      labels:
+        app: your-ruby-app
+    spec:
+      imagePullSecrets:
+      - name: ecr-secret  #change aws ECR based your repo
+      containers:
+      - name: your-ruby-app-container
+        image: 528479206068.dkr.ecr.us-east-1.amazonaws.com/interview:latest # Replace with your Docker image name and tag
+        ports:
+        - containerPort: 80
